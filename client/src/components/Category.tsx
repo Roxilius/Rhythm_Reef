@@ -1,12 +1,8 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { motion, Variants } from 'framer-motion'
-interface CategoryCardProps {
-    image: string;
-    title: string;
-    description: string;
-    animation: Variants
-}
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom';
+import { CategoryCardProps } from '@/types';
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ image, title, description, animation }) => {
     return (
@@ -63,8 +59,7 @@ const CategorySection: React.FC = () => {
 
     return (
         <>
-        {/* // <AnimatePresence> */}
-            <h1 className="text-center text-3xl font-bold mb-6 text-white">CATEGORY</h1>
+            <h1 className="text-center text-3xl font-bold mb-6 text-black">CATEGORY</h1>
             <div ref={ref} className={`w-4/5 m-auto overflow-hidden grid grid-cols-2 gap-4 transition-opacity duration-1000 ${inView ? 'opacity-100' : 'opacity-0'}`}>
                 <motion.div
                     initial={{ opacity: 0, y: -100 }}
@@ -72,39 +67,50 @@ const CategorySection: React.FC = () => {
                     transition={{ duration: 1 }}
                     className="col-span-2"
                 >
-                    <CategoryCard
-                        image={categories[2].image}
-                        title={categories[2].title}
-                        description={categories[2].description}
-                        animation={categories[2].animation}
-                    />
+                    <Link to={'/products'} onClick={() => {
+                        localStorage.setItem('category', 'Classical')
+                    }}>
+                        <CategoryCard
+                            image={categories[2].image}
+                            title={categories[2].title}
+                            description={categories[2].description}
+                            animation={categories[2].animation}
+                        />
+                    </Link>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, x: -100 }}
                     animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
                     transition={{ duration: 1 }}
                 >
-                    <CategoryCard
-                        image={categories[1].image}
-                        title={categories[1].title}
-                        description={categories[1].description}
-                        animation={categories[1].animation}
-                    />
+                    <Link to={'/products'} onClick={() => {
+                        localStorage.setItem('category', 'Acoustic')
+                    }}>
+                        <CategoryCard
+                            image={categories[1].image}
+                            title={categories[1].title}
+                            description={categories[1].description}
+                            animation={categories[1].animation}
+                        />
+                    </Link>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, x: 100 }}
                     animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
                     transition={{ duration: 1 }}
                 >
-                    <CategoryCard
-                        image={categories[0].image}
-                        title={categories[0].title}
-                        description={categories[0].description}
-                        animation={categories[0].animation}
-                    />
+                    <Link to={'/products'} onClick={() => {
+                        localStorage.setItem('category', 'Electric')
+                    }}>
+                        <CategoryCard
+                            image={categories[0].image}
+                            title={categories[0].title}
+                            description={categories[0].description}
+                            animation={categories[0].animation}
+                        />
+                    </Link>
                 </motion.div>
             </div>
-        {/* </AnimatePresence> */}
         </>
     );
 };

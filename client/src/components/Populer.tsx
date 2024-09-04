@@ -2,22 +2,35 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useInView } from 'react-intersection-observer';
 import ProductCard from "./ProductCard";
-import { productsTest, ProductsType } from "@/service/ProductService";
+import { getAllProducts } from "@/service/productService";
+import { ProductsType, TermsType } from "@/types";
 
 const Populer: React.FC = () => {
     const { ref, inView } = useInView({
         triggerOnce: false,
         threshold: 0.1,
     });
-    const [products, setProducts] = useState<ProductsType | null>(null);
+    const terms: TermsType = {
+        name: '',
+        category: '',
+        page: 1,
+        sortBy: '',
+        sortOrder: '',
+        minPrice: '',
+        maxPrice: ''
+    };
+    const [products, setProducts] = useState<ProductsType>();
+
     useEffect(() => {
-        setProducts(productsTest);
-        
-    },[products]);
+        const fetchProducts = async () => {
+            const data = await getAllProducts(terms);
+            setProducts(data.slice(0, 4));
+        };
+        fetchProducts();
+    });
     return (
-        // <AnimatePresence>
         <>
-            <h1 className="text-center text-3xl font-bold mb-6 text-white">Populer Product</h1>
+            <h1 className="text-center text-3xl font-bold mb-6 text-black">Populer Product</h1>
             <motion.section
                 ref={ref}
                 initial="hidden"
@@ -49,7 +62,6 @@ const Populer: React.FC = () => {
                     </motion.div>
                 ))}
             </motion.section>
-        {/* </AnimatePresence> */}
         </>
     );
 }

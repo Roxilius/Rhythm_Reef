@@ -2,8 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '@/App';
 import Home from '@/pages/Home';
 import PrivateRoute from './PrivateRouter';
+import Products from '@/pages/Products';
+import Profile from '@/pages/Profile';
 
-// Define the routes
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -14,26 +15,21 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/admin-dashboard',
-        element: (
-          <PrivateRoute
-            allowedRoles={['ADMIN']}
-            element={<Home />}
-          />
-        ),
+        path: '/products',
+        element: <Products />,
       },
       {
-        path: '/user-dashboard',
+        path: '/profile',
         element: (
           <PrivateRoute
-            allowedRoles={['USER', 'ADMIN']}
-            element={<Home />}
+            allowedRoles={['ADMIN', 'USER']}
+            element={<Profile />}
           />
         ),
       },
       {
         path: '/unauthorized',
-        element: <div>Unauthorized Access</div>, // Optional: Create a dedicated Unauthorized component
+        element: <div>Unauthorized Access</div>,
       },
     ],
   },

@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 50 }}
       transition={{ duration: 0.5 }}
-      className="bg-gray-800 text-white py-6"
+      className="bg-yellow-400 text-white py-6"
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
@@ -18,42 +18,42 @@ const Footer: React.FC = () => {
             <p>&copy; {new Date().getFullYear()} Rhythm Reef. All rights reserved.</p>
           </div>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <motion.a
-              href="https://wa.me/1234567890"
+            <motion.div
+              // href="https://wa.me/1234567890"
               aria-label="WhatsApp"
               className="text-green-400 hover:text-green-300"
               whileHover={{ scale: 1.2, rotate: 15 }}
               transition={{ duration: 0.3 }}
             >
               <FaWhatsapp className="w-6 h-6" />
-            </motion.a>
-            <motion.a
-              href="https://discord.gg/yourserver"
+            </motion.div>
+            <motion.div
+              // href="https://discord.gg/yourserver"
               aria-label="Discord"
               className="text-blue-500 hover:text-blue-400"
               whileHover={{ scale: 1.2, rotate: 15 }}
               transition={{ duration: 0.3 }}
             >
               <FaDiscord className="w-6 h-6" />
-            </motion.a>
-            <motion.a
-              href="https://github.com/yourusername"
+            </motion.div>
+            <motion.div
+              // href="https://github.com/yourusername"
               aria-label="GitHub"
               className="text-gray-400 hover:text-gray-300"
               whileHover={{ scale: 1.2, rotate: 15 }}
               transition={{ duration: 0.3 }}
             >
               <FaGithub className="w-6 h-6" />
-            </motion.a>
-            <motion.a
-              href="mailto:you@example.com"
+            </motion.div>
+            <motion.div
+              // href="mailto:you@example.com"
               aria-label="Email"
-              className="text-yellow-400 hover:text-yellow-300"
+              className="text-red-400 hover:text-red-500"
               whileHover={{ scale: 1.2, rotate: 15 }}
               transition={{ duration: 0.3 }}
             >
               <FaEnvelope className="w-6 h-6" />
-            </motion.a>
+            </motion.div>
           </div>
         </div>
       </div>

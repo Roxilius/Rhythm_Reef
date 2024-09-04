@@ -102,7 +102,7 @@ const Banner: React.FC = () => {
                     <div
                         key={index}
                         onClick={() => handleDotClick(index)}
-                        className={`w-12 h-2 md:h-2 ${index === currentIndex ? 'bg-red-600' : 'bg-slate-800'} rounded-full cursor-pointer`}
+                        className={`w-12 h-2 md:h-2 ${index === currentIndex ? 'bg-monokromatik-7' : 'bg-monokromatik-2'} rounded-full cursor-pointer`}
                     />
                 ))}
             </div>

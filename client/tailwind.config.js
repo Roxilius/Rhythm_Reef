@@ -21,6 +21,13 @@ module.exports = {
         'xs': '320px',
       },
       colors: {
+        'monokromatik-1': '#d86c00',
+        'monokromatik-2': '#e57700',
+        'monokromatik-3': '#f28100',
+        'monokromatik-4': '#ff8c00',
+        'monokromatik-5': '#ff9717',
+        'monokromatik-6': '#ffa227',
+        'monokromatik-7': '#ffad34',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
