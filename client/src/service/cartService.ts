@@ -17,9 +17,9 @@ export const addToCart = async (id: string, qty: number): Promise<GenericRespons
   return response.json();
 };
 
-export const deleteCartItem = async (id: string) => {
+export const deleteCartItem = async (id: string): Promise<GenericResponseType<null>> => {
   const token = getToken();
-  fetch(`http://localhost:8080/cart/delete-cart-items/${id}`, {
+  const response = await fetch(`http://localhost:8080/cart/delete-cart-items/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -27,9 +27,10 @@ export const deleteCartItem = async (id: string) => {
     },
   });
   getCart();
+  return response.json();
 };
 
-export const getCart = async (): Promise<CartType> => {
+export const getCart = async (): Promise<GenericResponseType<CartType | null>> => {
   const token = getToken();
   const result = await fetch("http://localhost:8080/cart/find-all", {
     method: "GET",
@@ -39,5 +40,5 @@ export const getCart = async (): Promise<CartType> => {
     },
   });
   const res = await result.json();
-  return res.data as CartType;
+  return res;
 };

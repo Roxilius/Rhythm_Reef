@@ -101,18 +101,12 @@ export type CartType = {
   cartItems: CartItems[];
 };
 
-export type CartPopupProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
 export type CartItemProps = {
   id: string;
   qty: number;
   amount: number;
   product: ProductType;
-  onQuantityChange: (id: string, newQuantity: number) => void;
-  onDelete: (id: string) => void;
+  fetchCart: () => void;
 };
 
 export type ScheduleType = {

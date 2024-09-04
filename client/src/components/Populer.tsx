@@ -2,8 +2,9 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useInView } from 'react-intersection-observer';
 import ProductCard from "./ProductCard";
-import { getAllProducts } from "@/service/productService";
-import { ProductsType, TermsType } from "@/types";
+import { getAllProducts, getProduct } from "@/service/productService";
+import { ProductsType, ProductType, TermsType } from "@/types";
+import ProductDetailPopup from "./ProductDetailPopup";
 
 const Populer: React.FC = () => {
     const { ref, inView } = useInView({
@@ -17,7 +18,8 @@ const Populer: React.FC = () => {
         sortBy: '',
         sortOrder: '',
         minPrice: '',
-        maxPrice: ''
+        maxPrice: '',
+        sort: ""
     };
     const [products, setProducts] = useState<ProductsType>();
 
@@ -28,6 +30,19 @@ const Populer: React.FC = () => {
         };
         fetchProducts();
     });
+    const [product, setProduct] = useState<ProductType>({} as ProductType);
+    const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+    const onclickProduct = async (id: string) => {
+        const res = await getProduct(id);
+        setProduct(res);
+        setIsPopupOpen(true);
+    }
+
+    const handleClose = () => {
+        setProduct({} as ProductType);
+        setIsPopupOpen(false);
+    }
+
     return (
         <>
             <h1 className="text-center text-3xl font-bold mb-6 text-black">Populer Product</h1>
@@ -58,10 +73,13 @@ const Populer: React.FC = () => {
                             show: { opacity: 1, y: 0 }
                         }}
                     >
-                        <ProductCard item={item} />
+                        <ProductCard item={item} handleClick={onclickProduct} />
                     </motion.div>
                 ))}
             </motion.section>
+            {
+                isPopupOpen && <ProductDetailPopup product={product} onClose={handleClose} />
+            }
         </>
     );
 }

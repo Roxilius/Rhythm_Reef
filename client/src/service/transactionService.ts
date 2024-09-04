@@ -1,6 +1,7 @@
+import { GenericResponseType } from "@/types";
 import { getToken } from "./userService";
 
-export const topUp = async (amount: number) => {
+export const topUp = async (amount: number): Promise<GenericResponseType<null>> => {
   const token = getToken();
   const response = await fetch(
     `http://localhost:8080/transaction/topup?amount=${amount}`,
@@ -13,5 +14,5 @@ export const topUp = async (amount: number) => {
     }
   );
   const res = await response.json();
-  console.log(res.message)
+  return res;
 };

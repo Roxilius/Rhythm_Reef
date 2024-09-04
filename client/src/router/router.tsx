@@ -4,6 +4,7 @@ import Home from '@/pages/Home';
 import PrivateRoute from './PrivateRouter';
 import Products from '@/pages/Products';
 import Profile from '@/pages/Profile';
+import CartPage from '@/pages/CartPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,15 @@ export const router = createBrowserRouter([
           <PrivateRoute
             allowedRoles={['ADMIN', 'USER']}
             element={<Profile />}
+          />
+        ),
+      },
+      {
+        path: '/cart',
+        element: (
+          <PrivateRoute
+            allowedRoles={['ADMIN', 'USER']}
+            element={<CartPage />}
           />
         ),
       },

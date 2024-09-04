@@ -67,9 +67,24 @@ const Profile = () => {
         return parseInt(numberString);
     };
 
-    const hanldeTopup: React.FormEventHandler<HTMLFormElement> = (e) => {
+    const hanldeTopup: React.FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        topUp(rupiahToNumber(saldo))
+        const res = await topUp(rupiahToNumber(saldo))
+        if (res.success) {
+            setAlertPopup({
+                message: res.message,
+                type: res.success,
+                onClose: closeAlert
+            })
+        } else {
+            setAlertPopup({
+                message: res.message,
+                type: res.success,
+                onClose: closeAlert
+            })
+        }
+        setIsAlertVisible(true);
+        fetchUser();
     };
 
 
@@ -162,6 +177,7 @@ const Profile = () => {
             }
             setIsAlertVisible(true);
         }
+        fetchUser();
     }
 
     const [phoneNumberError, setPhoneNumberError] = useState<string>('');
@@ -206,7 +222,7 @@ const Profile = () => {
     return (
         <main className="flex justify-center items-center min-h-screen text-white p-4">
             <motion.div
-                className="bg-monokromatik-7 rounded-lg overflow-hidden w-full max-w-4xl mx-auto text-black shadow-2xl"
+                className=" rounded-lg overflow-hidden w-full max-w-4xl mx-auto text-black shadow-2xl"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
@@ -214,7 +230,7 @@ const Profile = () => {
                 <div className="flex flex-col md:flex-row">
                     <motion.div
                         className="md:w-1/3 bg-gradient-to-bl from-monokromatik-5 to-monokromatik-6 text-center flex flex-col items-center justify-center p-6"
-                        initial={{ x: -100, opacity: 0 }}
+                        initial={{ x: 200, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
@@ -225,7 +241,7 @@ const Profile = () => {
                                 className="w-24 h-24 rounded-full mx-auto transition duration-300 ease-in-out group-hover:brightness-50"
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                transition={{ duration: 0.5, delay: 0.3 }}
+                                transition={{ duration: 0.2, delay: 0.3 }}
                             />
                             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                                 <label className="flex items-center cursor-pointer space-x-2">
@@ -266,7 +282,7 @@ const Profile = () => {
                     </motion.div>
                     <motion.div
                         className="md:w-2/3 p-6 bg-monokromatik-6 text-white"
-                        initial={{ x: 100, opacity: 0 }}
+                        initial={{ x: -200, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
@@ -334,7 +350,7 @@ const Profile = () => {
                                     />
                                 </div>
                                 <motion.button
-                                    className={`px-4 py-2 rounded text-white text-sm transition ${isModified ? 'bg-monokromatik-2 hover:bg-monokromatik-3' : 'bg-gray-400 cursor-not-allowed'}`}
+                                    className={`mt-4 sm:mt-0 h-min px-4 py-2 rounded text-white text-sm transition ${isModified ? 'bg-monokromatik-2 hover:bg-monokromatik-3' : 'bg-gray-400 cursor-not-allowed'}`}
                                     // onClick={handleToggleEditForm}
                                     whileHover={{ scale: isModified ? 1.05 : 1 }}
                                     whileTap={{ scale: isModified ? 0.95 : 1 }}
@@ -345,7 +361,6 @@ const Profile = () => {
                                 <div>
                                     <h2 className="text-lg font-semibold">Summary</h2>
                                     <div className="">
-                                        {/* Uncomment and update with real data */}
                                         {/* {data ? ( */}
                                         <div className="">
                                             <p><strong>Income:</strong> {formatCurrency(0)}</p>

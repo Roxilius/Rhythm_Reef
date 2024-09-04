@@ -4,7 +4,6 @@ import { Guitar, House, Menu, X } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Link } from 'react-router-dom';
 import { CircleUserRound, ShoppingCart } from 'lucide-react';
-import CartPopup from './CartPopup';
 import { HeaderProps } from '@/types';
 
 const Header: React.FC<HeaderProps> = ({ onOpenPopup }) => {
@@ -12,10 +11,6 @@ const Header: React.FC<HeaderProps> = ({ onOpenPopup }) => {
     const auth = useAuth();
     const toggleMenu = () => {
         setIsOpen(!isOpen);
-    };
-    const [isCartOpen, setCartOpen] = useState(false);
-    const toggleCartPopup = () => {
-        setCartOpen(!isCartOpen);
     };
 
     return (
@@ -32,13 +27,15 @@ const Header: React.FC<HeaderProps> = ({ onOpenPopup }) => {
                 <Link to={'/products'} className="hover:text-gray-300 m-auto flex"><Guitar />Products</Link>
                 {
                     auth.isAuthenticated && (
-                        <ShoppingCart onClick={toggleCartPopup} className='hover:text-gray-300 cursor-pointer' />
+                        <Link to={'/cart'} className='flex'>
+                            <ShoppingCart className='hover:text-gray-300 cursor-pointer' /> Cart
+                        </Link>
                     )
                 }
                 {
                     !auth.isAuthenticated ? (
                         <div onClick={onOpenPopup} className='hover:text-gray-300 cursor-pointer flex'>
-                            <CircleUserRound  />Profile
+                            <CircleUserRound />Profile
                         </div>
                     ) : (
                         <Link to={'/profile'} className='flex'>
@@ -88,7 +85,9 @@ const Header: React.FC<HeaderProps> = ({ onOpenPopup }) => {
                     >
                         {
                             auth.isAuthenticated && (
-                                <ShoppingCart onClick={toggleCartPopup} className='hover:text-gray-300 cursor-pointer' />
+                                <Link to={'/cart'} className='flex'>
+                                    <ShoppingCart className='hover:text-gray-300 cursor-pointer' /> Cart
+                                </Link>
                             )
                         }
                     </motion.div>
@@ -102,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenPopup }) => {
                         {
                             !auth.isAuthenticated ? (
                                 <div onClick={onOpenPopup} className='hover:text-gray-300 cursor-pointer flex'>
-                                    <CircleUserRound  />Profile
+                                    <CircleUserRound />Profile
                                 </div>
                             ) : (
                                 <Link to={'/profile'} className='flex'>
@@ -114,14 +113,6 @@ const Header: React.FC<HeaderProps> = ({ onOpenPopup }) => {
                     </motion.div>
                 </motion.nav>
             )}
-            {
-                isCartOpen && (
-                    <CartPopup
-                        isOpen={isCartOpen}
-                        onClose={() => setCartOpen(false)}
-                    />
-                )
-            }
         </motion.header>
     );
 }
