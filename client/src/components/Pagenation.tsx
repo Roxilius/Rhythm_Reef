@@ -26,7 +26,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     };
 
     return (
-        <div className="m-1 bottom-0 flex justify-center items-center">
+        <div className="m-1 flex justify-center items-center">
             <button
                 className="px-3 py-1 mx-1 rounded bg-monokromatik-4 text-white hover:bg-monokromatik-5 focus:outline-none focus:ring-2 focus:ring-monokromatik-6"
                 onClick={() => handlePageClick(currentPage - 1)}

@@ -57,10 +57,10 @@ const Products: React.FC = () => {
                 sort: value,
                 sortBy: value.includes('price') ? 'price' : 'name',
                 sortOrder:
-                value === "lowPrice" ? "asc" :
-                value === "highPrice" ? "desc" :
-                value === "a-z" ? "asc" :
-                value === "z-a" ? "desc" : "",
+                    value === "lowPrice" ? "asc" :
+                        value === "highPrice" ? "desc" :
+                            value === "a-z" ? "asc" :
+                                value === "z-a" ? "desc" : "",
             }));
         } else {
             setTerms((prevTerms) => ({
@@ -118,21 +118,19 @@ const Products: React.FC = () => {
         setIsPopupOpen(false);
     }
 
-    // const [showFilter, setShowFilter] = useState(false);
 
-    // const toggleFilter = () => {
-    //     setShowFilter(!showFilter);
-    // };
     const categories = ['', 'Electric', 'Acoustic', 'Classical'];
 
     return (
-        <main className={`relative flex justify-center p-6 gap-2 overflow-x-hidden text-black`}>
-            <section className="flex p-5 ">
+        <main className={`${products.length > 0 ? '' : 'h-min'} relative flex flex-col md:flex-row justify-center p-4 md:p-6 gap-2 overflow-x-hidden text-black`}>
+            <section className="flex flex-col md:flex-row p-3 md:p-5 w-full">
                 <motion.aside
-                    // initial={showFilter ? { opacity: 0 } : { x: '-100%' }}
-                    // animate={showFilter ? { opacity: 1 } : { x: '0%' }}
                     transition={{ type: 'tween', duration: 0.3 }}
-                    className={`w-2/12 flex-col flex gap-5`}
+                    // className={`w-full md:w-3/12 lg:w-2/12 flex-col flex gap-5`}
+                    initial={{ x: '-100%' }} // Posisi awal di luar viewport
+                    animate={{ x: '0%' }} // Posisi masuk viewport
+                    exit={{ x: '-100%' }} // Posisi keluar viewport
+                    className={`md:relative top-0 left-0 h-full w-full md:w-3/12 lg:w-2/12 flex-col flex gap-5 bg-white md:bg-transparent md:z-auto`}
                 >
                     <div className="flex font-bold">
                         <Filter /> Filter
@@ -155,7 +153,7 @@ const Products: React.FC = () => {
                                         className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                     />
                                     <label htmlFor={category} className="text-gray-700">
-                                        {category == '' ? 'All' : category}
+                                        {category === '' ? 'All' : category}
                                     </label>
                                 </div>
                             ))}
@@ -168,7 +166,7 @@ const Products: React.FC = () => {
                                 name="sort"
                                 value={terms.sort}
                                 onChange={handleChange}
-                                className="w-max text-center p-1 outline-1 outline outline-monokromatik-1 rounded-lg"
+                                className="w-full md:w-max text-center p-1 outline-1 outline outline-monokromatik-1 rounded-lg"
                             >
                                 <option value="">Sort By</option>
                                 <option value="lowPrice">{`Low -> High`}</option>
@@ -207,10 +205,8 @@ const Products: React.FC = () => {
                         </div>
                     </motion.form>
                 </motion.aside>
-                <motion.aside className="flex flex-col gap-3 w-full">
-                    <motion.form
-                        className="flex justify-center"
-                    >
+                <motion.aside className="justify-between flex flex-col gap-3 w-full">
+                    <motion.form className="flex justify-center p-2">
                         <input
                             type="search"
                             id="name"
@@ -227,7 +223,7 @@ const Products: React.FC = () => {
                         initial="hidden"
                         animate={inView ? 'show' : 'hidden'}
                         exit="hidden"
-                        className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 p-5 gap-6"
+                        className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-3 md:p-5 gap-4 md:gap-6"
                     >
                         {products.length > 0 && products.map((product) => (
                             <ProductCard
@@ -244,10 +240,8 @@ const Products: React.FC = () => {
                     />
                 </motion.aside>
             </section>
-            {
-                isPopupOpen && <ProductDetailPopup product={product} onClose={handleClose} />
-            }
-        </main >
+            {isPopupOpen && <ProductDetailPopup product={product} onClose={handleClose} />}
+        </main>
     )
 };
 
